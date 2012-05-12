@@ -229,9 +229,9 @@ if(class_exists('Imagick') || function_exists('ImageCreateTrueColor')) {
 			} else {
 				list($width, $height, $type, $attr) = getimagesize("img/flag.jpg");
 
-				if($ext == "image/jpeg")
+				if($type == "image/jpeg")
 					$orig_image = imagecreatefromjpeg($filename);
-				elseif($ext == "image/png")
+				elseif($type == "image/png")
 					$orig_image = imagecreatefrompng($filename);
 				else
 					$orig_image = imagecreatefromgif($filename);
@@ -240,9 +240,9 @@ if(class_exists('Imagick') || function_exists('ImageCreateTrueColor')) {
 
 				imagecopyresized($newimage, $orig_image, 0, 0, 0, 0, 100, 100, $width, $height);
 
-				if($ext == "image/jpeg")
+				if($type == "image/jpeg")
 					imagejpeg($newimage, 'thumb/' . $filename);
-				elseif($ext == "image/png")
+				elseif($type == "image/png")
 					imagepng($newimage, 'thumb/' . $filename);
 				else
 					imagegif($newimage, 'thumb/' . $filename);
