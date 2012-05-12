@@ -3,11 +3,11 @@
 # ------------------------------------------------
 $allowed_filetypes = Array('jpg','png','bmp','gif');
 #---------------------------------------------------
-print 
-'<!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Noda - ' . end(explode('/', dirname(__FILE__))) . '</title>
+	<title>Noda - <?php print basename(getcwd()); ?></title>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript">
@@ -79,7 +79,7 @@ print
 			var preload = new Image();
 			preload.src = element.attr("data-filename");				
 			preload.onload = function() {
-				$(".view").append("<a href=\"" + preload.src + "\" target=\"_blank\"><img src=\"" + preload.src + "\" alt=\"\" /></a>");	
+				$(".view").append('<a href="' + preload.src + '" target="_blank"><img src="' + preload.src + '" alt="" /></a>');	
 				$(".view").animate({
 					height: $(".view img").height()
 				}, speed, function() {
@@ -88,7 +88,6 @@ print
 			}
 		},
 		hide: function(speed, callback) {
-
 			if(callback == undefined)
 				callback = function(){};
 			else
@@ -105,116 +104,115 @@ print
 		}
 	}		
 	</script>
-	<style>
-		body {
-			background: #202020;
-			font: 13px "Helvetica Neue",Helvetica,Arial,sans-serif;
-		}
-		.thumb {
-			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-			filter: alpha(opacity=50);
-			-moz-opacity:0.5;
-			-khtml-opacity: 0.5;			
-			opacity: 0.5;
-			border: 2px solid #CCC;
-			margin: 2px;
-		}
-		.thumb.selected {
-			border: 2px solid #FF8904;
-			opacity: 1;
-		}
-		div.view {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 0;
-			padding: 10px 0 40px 0;
-			background: #171717;
-			-moz-box-shadow: 0px -1px 10px #000;
-			-webkit-box-shadow: 0px -1px 10px #000;
-			box-shadow: 0px -1px 10px #000;
-			text-align: center;
-		}
-		div.view img {
-			max-width: 800px;
-			max-height: 600px;
-		} 
-		div.view .top {
-			height: 20px;
-			color: #fff;
-			padding: 5px;
-			font-weight: bold;
-		}
-		div.view .close {
-			color: #fff;
-			cursor: pointer;
-			font-weight: bold;
-			float: right;
-			margin-left: 20px;
-		} 	
+	<style type="text/css">
+	body {
+		background: #202020;
+		font: 13px "Helvetica Neue",Helvetica,Arial,sans-serif;
+	}
+	.thumb {
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+		filter: alpha(opacity=50);
+		-moz-opacity: 0.5;
+		-khtml-opacity: 0.5;			
+		opacity: 0.5;
+		border: 2px solid #CCC;
+		margin: 2px;
+	}
+	.thumb.selected {
+		border: 2px solid #FF8904;
+		opacity: 1;
+	}
+	div.view {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 0;
+		padding: 10px 0 40px 0;
+		background: #171717;
+		-moz-box-shadow: 0px -1px 10px #000;
+		-webkit-box-shadow: 0px -1px 10px #000;
+		box-shadow: 0px -1px 10px #000;
+		text-align: center;
+	}
+	div.view img {
+		max-width: 800px;
+		max-height: 600px;
+	} 
+	div.view .top {
+		height: 20px;
+		color: #fff;
+		padding: 5px;
+		font-weight: bold;
+	}
+	div.view .close {
+		color: #fff;
+		cursor: pointer;
+		font-weight: bold;
+		float: right;
+		margin-left: 20px;
+	} 	
 
-		div.view .next, div.view .previous {	
-			width: 0;
-			height: 0;
-			top: 50%;
-			margin-top: -30px;
-			position: absolute;
-			cursor: pointer;						
-		}	
-		div.view .next {
-			right: 10px;
-			border-top: 30px solid transparent;
-			border-bottom: 30px solid transparent;
-			border-left: 30px solid #fff;			
-		} 	
-		div.view .previous {
-			left: 10px;
-			border-top: 30px solid transparent;
-			border-bottom: 30px solid transparent; 
-			border-right:30px solid #fff;
-		} 	
-		div.notice {
-			width: 360px;
-			height: 60px;
-			padding: 20px;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin-top: -50px;
-			margin-left: -200px;
-			background: #fff;
-			-webkit-border-radius: 8px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;		
-			-moz-box-shadow: inset 0px 0px 10px #4A4A4A;
-			-webkit-box-shadow: inset 0px 0px 10px #4A4A4A;
-			box-shadow: inset 0px 0px 10px #4A4A4A;				
-		}	
-		div.footer {
-			height: 30px;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			line-height: 30px;
-			color: #fff;
-			background: #121212;
-			-moz-box-shadow: 0px -1px 10px #000;
-			-webkit-box-shadow: 0px -1px 10px #000;
-			box-shadow: 0px -1px 10px #000;	
-			text-align: center;		
-		}
-		div.notification a, div.footer a {
-			color: #337372;
-			text-decoration: none;
-		}
-
+	div.view .next, div.view .previous {	
+		width: 0;
+		height: 0;
+		top: 50%;
+		margin-top: -30px;
+		position: absolute;
+		cursor: pointer;						
+	}	
+	div.view .next {
+		right: 10px;
+		border-top: 30px solid transparent;
+		border-bottom: 30px solid transparent;
+		border-left: 30px solid #fff;			
+	} 	
+	div.view .previous {
+		left: 10px;
+		border-top: 30px solid transparent;
+		border-bottom: 30px solid transparent; 
+		border-right:30px solid #fff;
+	} 	
+	div.notice {
+		width: 360px;
+		height: 60px;
+		padding: 20px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -50px;
+		margin-left: -200px;
+		background: #fff;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;		
+		-moz-box-shadow: inset 0px 0px 10px #4A4A4A;
+		-webkit-box-shadow: inset 0px 0px 10px #4A4A4A;
+		box-shadow: inset 0px 0px 10px #4A4A4A;				
+	}	
+	div.footer {
+		height: 30px;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		line-height: 30px;
+		color: #fff;
+		background: #121212;
+		-moz-box-shadow: 0px -1px 10px #000;
+		-webkit-box-shadow: 0px -1px 10px #000;
+		box-shadow: 0px -1px 10px #000;	
+		text-align: center;		
+	}
+	div.notification a, div.footer a {
+		color: #337372;
+		text-decoration: none;
+	}
 	</style>
 </head>
-<body>';
+<body>
+<?php
 if(class_exists('Imagick')) {
-
 	foreach (glob("*.*") as $filename) {
 		if(!file_exists('thumb')) {
 			mkdir('thumb');
@@ -240,15 +238,13 @@ if(class_exists('Imagick')) {
 	print '
 	<div class="notice">
 		<a href="http://www.imagemagick.org">Imagick</a> is not currently installed on your server.<br />
-		The script requires <a href="http://www.imagemagick.org">Imagick</a> for it to work properly. <br />
-		Ask your server administrator to install Imagick. 
-
+		Noda requires <a href="http://www.imagemagick.org">Imagick</a> for it to work properly.
 	</div>';
 }
-
-print '
-<div class="view"></div>
-<div class="footer"><a href="https://github.com/rikukissa/Noda">Noda</a> image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.</div>
-</body>
-</html>';
 ?>
+	<div class="view"></div>
+	<div class="footer">
+		<a href="https://github.com/rikukissa/Noda">Noda</a> image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.
+	</div>
+</body>
+</html>
