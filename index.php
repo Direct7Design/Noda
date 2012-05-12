@@ -123,7 +123,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 		opacity: 1;
 	}
 	div.view {
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
@@ -192,7 +192,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 	}	
 	div.footer {
 		height: 30px;
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
@@ -242,6 +242,8 @@ if(class_exists('Imagick')) {
 	</div>';
 }
 ?>
+	<div style="height:50px;"></div>
+
 	<div class="view"></div>
 	<div class="footer">
 		<a href="https://github.com/rikukissa/Noda">Noda</a> image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.
