@@ -123,7 +123,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 		opacity: 1;
 	}
 	div.view {
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
@@ -192,7 +192,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 	}	
 	div.footer {
 		height: 30px;
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
@@ -212,12 +212,13 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 </head>
 <body>
 <?php
-if(class_exists('Imagick')) {
+if(class_exists('Imagick') || ) {
 	foreach (glob("*.*") as $filename) {
 		if(!file_exists('thumb')) {
 			mkdir('thumb');
 		}
 		if(!file_exists('thumb/' . $filename) && in_array(end(explode('.', $filename)), $allowed_filetypes)) {
+
 			$imagick = new Imagick($filename);
 			$imagick->thumbnailImage(null, 100);
 			$imagick->cropThumbnailImage(100, 100);
