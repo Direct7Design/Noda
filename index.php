@@ -1,7 +1,7 @@
 <?php
 # Config
 # ------------------------------------------------
-$allowed_filetypes = Array('jpg','png','bmp','gif');
+$allowed_filetypes = Array('jpg','png','gif');
 #---------------------------------------------------
 ?>
 <!DOCTYPE html>
@@ -212,19 +212,45 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 </head>
 <body>
 <?php
-if(class_exists('Imagick')) {
+if(class_exists('Imagick') || function_exists('ImageCreateTrueColor')) {
 	foreach (glob("*.*") as $filename) {
 		if(!file_exists('thumb')) {
 			mkdir('thumb');
 		}
 		if(!file_exists('thumb/' . $filename) && in_array(end(explode('.', $filename)), $allowed_filetypes)) {
 
-			$imagick = new Imagick($filename);
-			$imagick->thumbnailImage(null, 100);
-			$imagick->cropThumbnailImage(100, 100);
-			$imagick->writeImage('thumb/' . $filename);
-			$imagick->clear();
-			$imagick->destroy();
+			if(class_exists('Imagick')) {
+				$imagick = new Imagick($filename);
+				$imagick->thumbnailImage(null, 100);
+				$imagick->cropThumbnailImage(100, 100);
+				$imagick->writeImage('thumb/' . $filename);
+				$imagick->clear();
+				$imagick->destroy();
+			} else {
+				list($width, $height, $type, $attr) = getimagesize("img/flag.jpg");
+
+				if($ext == "image/jpeg")
+					$orig_image = imagecreatefromjpeg($filename);
+				elseif($ext == "image/png")
+					$orig_image = imagecreatefrompng($filename);
+				else
+					$orig_image = imagecreatefromgif($filename);
+
+				$newimage = ImageCreateTrueColor(100,100);
+
+				imagecopyresized($newimage, $orig_image, 0, 0, 0, 0, 100, 100, $width, $height);
+
+				if($ext == "image/jpeg")
+					imagejpeg($newimage, $filename);
+				elseif($ext == "image/png")
+					imagepng($newimage, $filename);
+				else
+					imagegif($newimage, $filename);
+
+				imagedestroy($newimage);
+				imagedestroy($orig_image);
+			}	
+
 			print '<img src="thumb/' . urlencode($filename) . '" alt="" class="thumb" data-filename="' . urlencode($filename) . '" />';
 		} elseif(in_array(end(explode('.', $filename)), $allowed_filetypes)) {
 			print '<img src="thumb/' . urlencode($filename) . '" alt="" class="thumb" data-filename="' . urlencode($filename) . '" />';
