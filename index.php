@@ -1,7 +1,7 @@
 <?php
 # Config
 # ------------------------------------------------
-$allowed_filetypes = Array('jpg','png','gif');
+$allowed_filetypes = Array('jpg','png','bmp','gif');
 #---------------------------------------------------
 ?>
 <!DOCTYPE html>
@@ -15,9 +15,7 @@ $allowed_filetypes = Array('jpg','png','gif');
 		$(".thumb").live("click", function() {
 			var image = $(this);
 			if(view.visible) {
-				view.hide(1000, function() {
-					view.open(1000,image);	
-				});
+				view.change(500, image);
 			} else {
 				view.open(1000, image);	
 			}	
@@ -33,37 +31,40 @@ $allowed_filetypes = Array('jpg','png','gif');
 				opacity: 0.5
 			},500);		
 		});	
+		$("#noda").live("click", function(e) {
+			if($(e.target).is('div')) {
+				view.hide(500);
+			}
+		});
+
+
 		$(document).keydown(function(e) {
 			switch(e.keyCode) {
 				case 38: // up
-				if(!view.visible) {
-					view.open(1000, $("img.thumb:first"));	
-				}	
+					if(!view.visible) {
+						view.open(1000, $("img.thumb:first"));	
+					}	
 				break;	
 				case 40: // down
-				if(view.visible) {
-					view.hide(1000);	
-				}	
+					if(view.visible) {
+						view.hide(1000);	
+					}	
 				break;											
 				case 37: // Backwards
-				if(view.visible) {
-					view.hide(500, function() {
+					if(view.visible) {
 						if(view.image.index() > 0)
-							view.open(500, view.image.prev());
+							view.change(500, view.image.prev());
 						else 
-							view.open(500, $("img.thumb:last"));
-					});
-				}
+							view.change(500, $("img.thumb:last"));
+					}
 				break;				
 				case 39: // Forwards
-				if(view.visible) {
-					view.hide(500, function() {
+					if(view.visible) {
 						if(view.image.next().index() < $(".thumb").length)
-							view.open(500, view.image.next());	
+							view.change(500, view.image.next());	
 						else
-							view.open(500, $("img.thumb:first"));
-					});
-				}
+							view.change(500, $("img.thumb:first"));
+					}
 				break;
 			}
 		});
@@ -71,7 +72,7 @@ $allowed_filetypes = Array('jpg','png','gif');
 	
 	var view = {
 		visible: false,
-		open: function(speed,element) {
+		open: function(speed, element) {
 			view.visible = true;
 			view.image = element;
 			view.image.addClass("selected");
@@ -79,12 +80,10 @@ $allowed_filetypes = Array('jpg','png','gif');
 			var preload = new Image();
 			preload.src = element.attr("data-filename");				
 			preload.onload = function() {
-				$("#Noda").append('<a href="' + preload.src + '" target="_blank"><img src="' + preload.src + '" alt="" /></a>');	
-				$("#Noda").animate({
-					height: $("#Noda img").height()
-				}, speed, function() {
-					
-				});				
+				$("#noda").append('<a href="' + preload.src + '" target="_blank"><img src="' + preload.src + '" alt="" /></a>');	
+				$("#noda").animate({
+					height: $("#noda img").height()
+				}, speed);				
 			}
 		},
 		hide: function(speed, callback) {
@@ -93,7 +92,7 @@ $allowed_filetypes = Array('jpg','png','gif');
 			else
 				callback = callback;
 
-			$("#Noda").animate({
+			$("#noda").animate({
 				height: 0
 			}, speed, function() {
 				$(this).empty();
@@ -101,6 +100,22 @@ $allowed_filetypes = Array('jpg','png','gif');
 				$(".selected").removeClass("selected");
 				callback();
 			});
+		},
+		change: function(speed, element) {
+			$(".selected").removeClass("selected");
+
+			view.image = element;
+			view.image.addClass("selected");
+
+			var preload = new Image();
+			preload.src = element.attr("data-filename");	
+
+			preload.onload = function() {
+				$("#noda").html('<a href="' + preload.src + '" target="_blank"><img src="' + preload.src + '" alt="" /></a>');	
+				$("#noda").animate({
+					height: $("#noda img").height()
+				}, speed);			
+			}
 		}
 	}		
 	</script>
@@ -122,7 +137,7 @@ $allowed_filetypes = Array('jpg','png','gif');
 		border: 2px solid #FF8904;
 		opacity: 1;
 	}
-	div#Noda {
+	div#noda {
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -135,17 +150,17 @@ $allowed_filetypes = Array('jpg','png','gif');
 		box-shadow: 0px -1px 10px #000;
 		text-align: center;
 	}
-	div#Noda img {
+	div#noda img {
 		max-width: 800px;
 		max-height: 600px;
 	} 
-	div#Noda .top {
+	div#noda .top {
 		height: 20px;
 		color: #fff;
 		padding: 5px;
 		font-weight: bold;
 	}
-	div#Noda .close {
+	div#noda .close {
 		color: #fff;
 		cursor: pointer;
 		font-weight: bold;
@@ -153,7 +168,7 @@ $allowed_filetypes = Array('jpg','png','gif');
 		margin-left: 20px;
 	} 	
 
-	div#Noda .next, div#Noda .previous {	
+	div#noda .next, div#noda .previous {	
 		width: 0;
 		height: 0;
 		top: 50%;
@@ -161,13 +176,13 @@ $allowed_filetypes = Array('jpg','png','gif');
 		position: absolute;
 		cursor: pointer;						
 	}	
-	div#Noda .next {
+	div#noda .next {
 		right: 10px;
 		border-top: 30px solid transparent;
 		border-bottom: 30px solid transparent;
 		border-left: 30px solid #fff;			
 	} 	
-	div#Noda .previous {
+	div#noda .previous {
 		left: 10px;
 		border-top: 30px solid transparent;
 		border-bottom: 30px solid transparent; 
@@ -269,7 +284,9 @@ if(class_exists('Imagick') || function_exists('ImageCreateTrueColor')) {
 	</div>';
 }
 ?>
-	<div id="Noda"></div>
+	<div style="height:50px;"></div>
+
+	<div id="noda"></div>
 	<div class="footer">
 		<a href="https://github.com/rikukissa/Noda">Noda</a> image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.
 	</div>
