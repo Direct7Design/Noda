@@ -241,14 +241,14 @@ if(class_exists('Imagick')) {
 	<div class="notice">
 		<a href="http://www.imagemagick.org">Imagick</a> is not currently installed on your server.<br />
 		The script requires <a href="http://www.imagemagick.org">Imagick</a> for it to work properly. <br />
-		Ask your server administrator to install Imagick.
+		Ask your server administrator to install Imagick. 
 
 	</div>';
 }
 
 print '
 <div class="view"></div>
-<div class="footer">Noda image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.</div>
+<div class="footer"><a href="https://github.com/rikukissa/Noda">Noda</a> image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.</div>
 </body>
 </html>';
 ?>
