@@ -212,7 +212,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 </head>
 <body>
 <?php
-if(class_exists('Imagick') || ) {
+if(class_exists('Imagick')) {
 	foreach (glob("*.*") as $filename) {
 		if(!file_exists('thumb')) {
 			mkdir('thumb');
