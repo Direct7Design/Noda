@@ -241,11 +241,11 @@ if(class_exists('Imagick') || function_exists('ImageCreateTrueColor')) {
 				imagecopyresized($newimage, $orig_image, 0, 0, 0, 0, 100, 100, $width, $height);
 
 				if($ext == "image/jpeg")
-					imagejpeg($newimage, $filename);
+					imagejpeg($newimage, 'thumb/' . $filename);
 				elseif($ext == "image/png")
-					imagepng($newimage, $filename);
+					imagepng($newimage, 'thumb/' . $filename);
 				else
-					imagegif($newimage, $filename);
+					imagegif($newimage, 'thumb/' . $filename);
 
 				imagedestroy($newimage);
 				imagedestroy($orig_image);
