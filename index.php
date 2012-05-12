@@ -79,9 +79,9 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 			var preload = new Image();
 			preload.src = element.attr("data-filename");				
 			preload.onload = function() {
-				$(".view").append('<a href="' + preload.src + '" target="_blank"><img src="' + preload.src + '" alt="" /></a>');	
-				$(".view").animate({
-					height: $(".view img").height()
+				$("#Noda").append('<a href="' + preload.src + '" target="_blank"><img src="' + preload.src + '" alt="" /></a>');	
+				$("#Noda").animate({
+					height: $("#Noda img").height()
 				}, speed, function() {
 					
 				});				
@@ -93,7 +93,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 			else
 				callback = callback;
 
-			$(".view").animate({
+			$("#Noda").animate({
 				height: 0
 			}, speed, function() {
 				$(this).empty();
@@ -122,7 +122,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 		border: 2px solid #FF8904;
 		opacity: 1;
 	}
-	div.view {
+	div#Noda {
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -135,17 +135,17 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 		box-shadow: 0px -1px 10px #000;
 		text-align: center;
 	}
-	div.view img {
+	div#Noda img {
 		max-width: 800px;
 		max-height: 600px;
 	} 
-	div.view .top {
+	div#Noda .top {
 		height: 20px;
 		color: #fff;
 		padding: 5px;
 		font-weight: bold;
 	}
-	div.view .close {
+	div#Noda .close {
 		color: #fff;
 		cursor: pointer;
 		font-weight: bold;
@@ -153,7 +153,7 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 		margin-left: 20px;
 	} 	
 
-	div.view .next, div.view .previous {	
+	div#Noda .next, div#Noda .previous {	
 		width: 0;
 		height: 0;
 		top: 50%;
@@ -161,13 +161,13 @@ $allowed_filetypes = Array('jpg','png','bmp','gif');
 		position: absolute;
 		cursor: pointer;						
 	}	
-	div.view .next {
+	div#Noda .next {
 		right: 10px;
 		border-top: 30px solid transparent;
 		border-bottom: 30px solid transparent;
 		border-left: 30px solid #fff;			
 	} 	
-	div.view .previous {
+	div#Noda .previous {
 		left: 10px;
 		border-top: 30px solid transparent;
 		border-bottom: 30px solid transparent; 
@@ -243,7 +243,7 @@ if(class_exists('Imagick')) {
 	</div>';
 }
 ?>
-	<div class="view"></div>
+	<div id="Noda"></div>
 	<div class="footer">
 		<a href="https://github.com/rikukissa/Noda">Noda</a> image gallery by <a href="http://rikurouvila.fi">Riku Rouvila</a>. Use arrow keys to navigate.
 	</div>
